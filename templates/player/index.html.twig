@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste des joueurs{% endblock %}
+
+    {% block body %}
+    <h1>Bienvenue dans le jeu !</h1>
+    <p>Profitez de votre aventure</p>
+
+        {% for player in players %}
+
+        <p>Le joueur n°{{ player.id }} s'appelle {{ player.name }}</p>
+
+        {% endfor %}
+
+    {% endblock %}
