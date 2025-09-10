@@ -9,16 +9,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\DomCrawler\Form;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class PlayerController extends AbstractController
 {
     private PlayerRepository $playerRepository;
     private EntityManagerInterface $entityManager;
+    private FormFactoryInterface $formFactory;
 
-    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $entityManager)
+    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $entityManager, FormFactoryInterface $formFactory)
     {
         $this->playerRepository = $playerRepository;
         $this->entityManager = $entityManager;
+        $this->formFactory = $formFactory;
     }
 
     #[Route('/player/', name: 'app_player')]
@@ -32,17 +37,22 @@ class PlayerController extends AbstractController
     }
 
     #[Route('/player/create', name: 'create_player')]
-    public function create(): Response
+    public function create(Request $request): Response
     {
         $player = new Player();
-        $player->setName('Tata');
-        $player->setXp(100);
+        $form = $this->formFactory->create(PlayerType::class, $player);
 
-        $this->entityManager->persist($player);
-        $this->entityManager->flush();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $this->entityManager->persist($player);
+            $this->entityManager->flush();
 
-        return new Response('Joueur créé avec l\'ID '.$player->getId());
+            return $this->redirectToRoute('app_player');
+        }
     }
+
+
 
     #[Route('/player/update/{id}', name: 'update_player')]
     public function update(int $id): Response
