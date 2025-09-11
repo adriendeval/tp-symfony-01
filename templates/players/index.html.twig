@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Liste des joueurs</h1>
 
-    <table class="table">
+    <table class="table" border="1" cellpadding="5" cellspacing="0">
         <thead>
             <tr>
                 <th>Id</th>
@@ -25,14 +25,14 @@
                 <td>{{ player.level }}</td>
                 <td>
                     {% for group in player.groups %}
-                        {{ group.name }}{% if not loop.last %}, {% endif %}
+                        {{ group.label }}
                     {% else %}
                         Aucun groupe
                     {% endfor %}
                 </td>
                 <td>
                     {% for game in player.games %}
-                        {{ game.name }}{% if not loop.last %}, {% endif %}
+                        {{ game.name }}
                     {% else %}
                         Aucune partie
                     {% endfor %}

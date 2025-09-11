@@ -36,7 +36,7 @@ class Game
 
     public function __toString()
     {
-        return (string)$this->name;
+        return (string)$this->name . ' (' . $this->startDate->format('d/m/Y H:i:s') . ')';
     }
 
     public function getId(): ?int

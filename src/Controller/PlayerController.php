@@ -56,8 +56,6 @@ class PlayerController extends AbstractController
         ]);
     }
 
-
-
     #[Route('/player/update/{id}', name: 'update_player')]
     public function update(int $id): Response
     {

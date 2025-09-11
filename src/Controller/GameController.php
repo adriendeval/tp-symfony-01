@@ -5,9 +5,20 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\PlayerRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class GameController extends AbstractController
 {
+    private PlayerRepository $playerRepository;
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $entityManager)
+    {
+        $this->playerRepository = $playerRepository;
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/', name: 'app_index')] // Annotation
     public function index(): Response
     {
@@ -22,5 +33,15 @@ class GameController extends AbstractController
     {
         $info = "La partie n°$id est lancée";
         return new Response($info);
+    }
+
+    #[Route('/players', name: 'app_players')]
+    public function players(): Response
+    {
+        $info = "Liste des joueurs";
+        return $this->render('players/index.html.twig', [
+            'information' => $info,
+            'players' => $this->playerRepository->findAll()
+        ]);
     }
 }
