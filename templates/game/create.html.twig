@@ -3,11 +3,11 @@
 {% block title %}Créer un joueur{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau joueur</h1>
+    <h1>Créer un joueur</h1>
 
     {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        <button class="btn">Créer</button>
+        {{ form_widget(form) }}
+        <button type="submit">Créer</button>
     {{ form_end(form) }}
 
 {% endblock %}

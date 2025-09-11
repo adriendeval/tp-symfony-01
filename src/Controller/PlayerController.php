@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Player;
-use App\Repository\PlayerRepository;
+use App\Form\PlayerType;
 use Doctrine\ORM\EntityManager;
+use App\Repository\PlayerRepository;
+use Symfony\Component\DomCrawler\Form;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PlayerController extends AbstractController
 {
@@ -50,6 +51,9 @@ class PlayerController extends AbstractController
 
             return $this->redirectToRoute('app_player');
         }
+        return $this->render('game/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 
