@@ -8,7 +8,7 @@
 
         {% for player in players %}
 
-        <p>Le joueur n°{{ player.id }} s'appelle {{ player.name }}</p>
+        <p>Le joueur n°{{ player.id }} s'appelle {{ player.name }}, il a {{ player.xp }} points d'XP et est au niveau <span style="font-weight: bold; color: blue;">{{ player.level }}.</span></p>
 
         {% endfor %}
 

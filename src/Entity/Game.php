@@ -2,54 +2,46 @@
 
 namespace App\Entity;
 
-use App\Repository\LevelRepository;
+use App\Repository\GameRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: LevelRepository::class)]
-#[ORM\Table(name: 'tbl_levels')]
-class Level
+#[ORM\Entity(repositoryClass: GameRepository::class)]
+#[ORM\Table(name: 'tbl_games')]
+class Game
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $label = null;
-
     /**
      * @var Collection<int, Player>
      */
-    #[ORM\OneToMany(targetEntity: Player::class, mappedBy: 'level')]
+    #[ORM\ManyToMany(targetEntity: Player::class, mappedBy: 'games')]
     private Collection $players;
+
+    #[ORM\Column(length: 100)]
+    private ?string $name = null;
+
+    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
+    private ?\DateTime $startDate = null;
 
     public function __construct()
     {
         $this->players = new ArrayCollection();
     }
 
-    public function __toString(): string
+    public function __toString()
     {
-        return $this->label;
+        return (string)$this->name;
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getLabel(): ?string
-    {
-        return $this->label;
-    }
-
-    public function setLabel(string $label): static
-    {
-        $this->label = $label;
-
-        return $this;
     }
 
     /**
@@ -64,7 +56,7 @@ class Level
     {
         if (!$this->players->contains($player)) {
             $this->players->add($player);
-            $player->setLevel($this);
+            $player->addGame($this);
         }
 
         return $this;
@@ -73,11 +65,32 @@ class Level
     public function removePlayer(Player $player): static
     {
         if ($this->players->removeElement($player)) {
-            // set the owning side to null (unless already changed)
-            if ($player->getLevel() === $this) {
-                $player->setLevel(null);
-            }
+            $player->removeGame($this);
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTime
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(\DateTime $startDate): static
+    {
+        $this->startDate = $startDate;
 
         return $this;
     }

@@ -13,9 +13,10 @@ class PlayerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('name', TextType::class);
+        $builder->add('xp');
         $builder->add('level');
         $builder->add('groups');
-        $builder->add('xp');
+        $builder->add('games');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
