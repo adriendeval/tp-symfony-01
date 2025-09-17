@@ -17,6 +17,7 @@ class PlayerType extends AbstractType
         $builder->add('level');
         $builder->add('groups');
         $builder->add('games');
+        $builder->add('categories');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -56,19 +56,19 @@ class PlayerController extends AbstractController
         ]);
     }
 
-    #[Route('/player/update/{id}', name: 'update_player')]
-    public function update(int $id): Response
+    #[Route('/player/edit/{id}', name: 'edit_player')]
+    public function editPlayer(int $id): Response
     {
         $player = $this->playerRepository->find($id);
 
-        $player->setName('Mario');
-        $this->playerRepository->flush();
+        $player->setName('Yoshi');
+        $this->entityManager->flush();
 
         return new Response('Le joueur {id} a bien été mis à jour.');
     }
 
     #[Route('/player/delete/{id}', name: 'delete_player')]
-    public function delete(int $id): Response
+    public function deletePlayer(int $id): Response
     {
         $player = $this->playerRepository->find($id);
 
@@ -77,6 +77,6 @@ class PlayerController extends AbstractController
             $this->entityManager->flush();
         }
 
-        return new Response('Le joueur {id} a bien été supprimé.');
+        return new Response('Le joueur ' . $player->getName() . ' a bien été supprimé.');
     }
 }
