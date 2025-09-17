@@ -77,6 +77,6 @@ class PlayerController extends AbstractController
             $this->entityManager->flush();
         }
 
-        return new Response('Le joueur ' . $player->getName() . ' a bien été supprimé.');
+        return new Response('Le joueur ' . $player->getName() . ' a bien été supprimé. - <a href="' . $this->generateUrl('app_players') . '">Retour à la liste des joueurs</a>');
     }
 }

@@ -3,12 +3,14 @@
 {% block title %}Liste des joueurs{% endblock %}
 
     {% block body %}
-    <h1>Bienvenue dans le jeu !</h1>
-    <p>Profitez de votre aventure</p>
+    <h1>Joueur créé avec succès !</h1>
+    <p>Pour voir la liste des joueurs, cliquez <a href="{{ path('app_players') }}">ici</a>.</p>
+
+    <hr>
 
         {% for player in players %}
 
-        <p>Le joueur n°{{ player.id }} s'appelle {{ player.name }}, il a {{ player.xp }} points d'XP et est au niveau <span style="font-weight: bold; color: blue;">{{ player.level }}.</span></p>
+        <p>Le joueur n°{{ player.id }} s'appelle {{ player.name }}, il a {{ player.xp }} points d'XP et est au niveau <span style="font-weight: bold; color: dodgerblue;">{{ player.level }}.</span></p>
 
         {% endfor %}
 

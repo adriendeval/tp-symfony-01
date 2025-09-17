@@ -2,9 +2,10 @@
 
 {% block title %}{% endblock %}
 
-    {% block body %}
-    <h1>Bienvenue dans le jeu !</h1>
-    <p>Profitez de votre aventure</p>
+{% block body %}
 
-    <p>Votre message : <span style="color: green">{{ information }}</span></p>
-    {% endblock %}
+<h1>Bienvenue dans le jeu !</h1>
+
+<a href="{{ path('app_players') }}">Gérer les joueurs</a>
+
+{% endblock %}
