@@ -5,8 +5,13 @@
 {% block body %}
     <h1>Liste des joueurs</h1>
 
-    <table class="table" border="1" cellpadding="5" cellspacing="0">
-        <thead>
+    <a href="{{ path('create_player') }}" style="border: 1px solid black; padding: 5px 10px; text-decoration: none; color: black; border-radius: 4px; background-color: #f2f2f2;">Créer un joueur</a>
+
+    <br>
+    <br>
+
+    <table class="table" border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+        <thead style="background-color: #f2f2f2;">
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
@@ -14,6 +19,8 @@
                 <th>Niveau</th>
                 <th>Groupe(s)</th>
                 <th>Partie(s)</th>
+                <th>Catégorie(s)</th>
+                <th colspan="8">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,17 +32,30 @@
                 <td>{{ player.level }}</td>
                 <td>
                     {% for group in player.groups %}
-                        {{ group.label }}
+                        {{ group.label }}{% if not loop.last %}, {% endif %}
                     {% else %}
                         Aucun groupe
                     {% endfor %}
                 </td>
                 <td>
                     {% for game in player.games %}
-                        {{ game.name }}
+                        {{ game.name }}{% if not loop.last %}, {% endif %}
                     {% else %}
                         Aucune partie
                     {% endfor %}
+                </td>
+                <td>
+                    {% for category in player.categories %}
+                        {{ category.name }}{% if not loop.last %}, {% endif %}
+                    {% else %}
+                        Aucune catégorie
+                    {% endfor %}
+                </td>
+                <td colspan="7" style="text-align: center;">
+                    <a href="{{ path('edit_player', {'id': player.id}) }}" style="color: dodgerblue;">Modifier</a>
+                </td>
+                <td colspan="7" style="text-align: center;">
+                    <a href="{{ path('delete_player', {'id': player.id}) }}" style="color: red;">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
