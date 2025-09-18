@@ -4,12 +4,11 @@ Ce projet consiste à gérer des joueurs dans une base de données en utilisant 
 
 **Fonctionnalités disponibles** :
 * ajout d'un joueur
-* modification d'un joueur (limité)
+* modification d'un joueur
 * suppression d'un joueur
 * choix du nom, de l'XP, du niveau, du ou des groupe(s), de la ou des partie(s) et de la ou des catégorie(s)
 * affichage de tous les joueurs dans un tableau
 
 **En cours de développement/à faire** :
 * intégration d'un framework CSS
-* ajout d'une page pour modifier entièrement un joueur existant
 * ajout des permissions (utilisateurs, admins)
