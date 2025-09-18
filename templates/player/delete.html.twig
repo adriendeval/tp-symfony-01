@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Supprimer un joueur
+{% endblock %}
+
+{% block body %}
+	<h1>Supprimer un joueur</h1>
+
+	<p>Êtes-vous sûr de vouloir supprimer le joueur {{ player.name }} ?</p>
+
+	{{ form_start(form) }}
+	    <button type="submit">Supprimer</button>
+	{{ form_end(form, {'render_rest': false}) }}
+
+	<a href="{{ path('app_player') }}">Annuler</a>
+{% endblock %}

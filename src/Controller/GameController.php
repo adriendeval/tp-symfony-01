@@ -27,21 +27,4 @@ class GameController extends AbstractController
             'information' => $info
         ]);
     }
-
-    #[Route('/go/{id}', name: 'app_go')]
-    public function go(int $id): Response
-    {
-        $info = "La partie n°$id est lancée";
-        return new Response($info);
-    }
-
-    #[Route('/players', name: 'app_players')]
-    public function players(): Response
-    {
-        $info = "Liste des joueurs";
-        return $this->render('players/index.html.twig', [
-            'information' => $info,
-            'players' => $this->playerRepository->findAll()
-        ]);
-    }
 }
